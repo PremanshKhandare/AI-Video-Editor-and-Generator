@@ -57,8 +57,16 @@ function TrackList() {
                     <div key={index}
                         className={`flex flex-col items-center border-b p-2 mt-3 rounded-lg cursor-pointer
                     ${selectedFrame == index && 'bg-white'}`} onClick={() => setSelectedFrame(index)}>
-                        <Image src={frame.image} alt={index} width={40} height={40}
-                            className='w-full h-[40px] object-contain rounded-lg' />
+                        {frame.image ? (
+                            <Image
+                                src={frame.image}
+                                alt={`frame-${index}`}
+                                width={40}
+                                height={40}
+                                className='w-full h-[40px] object-contain rounded-lg'
+                            />
+                        ) : null}
+
                         <h2 className='text-xs line-clamp-2 mt-1'>{frame.text}</h2>
 
                         {selectedFrame == index &&
