@@ -23,7 +23,10 @@ function RemotionComposition({ frameList }) {
               <AbsoluteFill style={{
                 transform: `translateX(${width / 2 - 50}px) translateY(${height / 2 - 20}px)`
               }}>
-                <h2 style={{ color: 'white' }}>
+                <h2 style={{ 
+                  color: 'white',
+                  fontSize: frame?.fontSize 
+                  }}>
                   {frame.text}
                 </h2>
               </AbsoluteFill>

@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/accordion";
 import { LetterText } from "lucide-react";
 import { useContext, useEffect, useState } from "react";
+import SliderField from "./SliderField";
 import TextAreaBox from "./TextAreaBox";
 
 function FrameConfig() {
@@ -36,7 +37,7 @@ function FrameConfig() {
             const frameList = videoFrames?.frameList;
 
             frameList[videoFrames?.selectedFrame] = frame;
-            frame.text !=frameList[videoFrames?.selectedFrame].text && setVideoFrames(prev => ({
+            setVideoFrames(prev => ({
                 ...prev,
                 frameList: frameList
             }))
@@ -44,7 +45,7 @@ function FrameConfig() {
     }, [frame])
 
     return (
-        <div className='p-3 bg-gray-100 rounded-lg'>
+        <div className='p-3 bg-zinc-200 rounded-lg'>
             <Accordion type="single" collapsible>
                 <AccordionItem value="item-1">
                     <AccordionTrigger>
@@ -53,6 +54,9 @@ function FrameConfig() {
                     <AccordionContent>
                         <TextAreaBox frame={frame}
                             handleInputChange={(value) => handleInputChange('text', value)} />
+                            <SliderField label={'Font size'}
+                            defaultValue={frame?.fontSize}
+                            handleInputChange={(value) => handleInputChange('fontSize', value)} />
                     </AccordionContent>
                 </AccordionItem>
             </Accordion>
