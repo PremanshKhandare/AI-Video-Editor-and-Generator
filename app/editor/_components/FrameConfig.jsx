@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/accordion";
 import { LetterText } from "lucide-react";
 import { useContext, useEffect, useState } from "react";
+import DropDown from "./DropDown";
 import SliderField from "./SliderField";
 import TextAreaBox from "./TextAreaBox";
 
@@ -33,7 +34,7 @@ function FrameConfig() {
 
     useEffect(() => {
         console.log(frame)
-        if (videoFrames?.frameList?.length>0 && frame) {
+        if (videoFrames?.frameList?.length > 0 && frame) {
             const frameList = videoFrames?.frameList;
 
             frameList[videoFrames?.selectedFrame] = frame;
@@ -54,7 +55,15 @@ function FrameConfig() {
                     <AccordionContent>
                         <TextAreaBox frame={frame}
                             handleInputChange={(value) => handleInputChange('text', value)} />
-                            <SliderField label={'Font size'}
+
+
+                        {/* Duration DropDown */}
+                        <DropDown defaultValue={frame?.duration} label={'Duration (in Sec)'}
+                            options={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+                            handleInputChange={(value) => handleInputChange('duration', value)} />
+
+                        {/* Font Size Select */}
+                        <SliderField label={'Font size'}
                             defaultValue={frame?.fontSize}
                             handleInputChange={(value) => handleInputChange('fontSize', value)} />
                     </AccordionContent>
