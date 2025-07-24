@@ -10,7 +10,8 @@ const defaultFrame = {
     text: 'Hello World',
     textColor: 'black',
     fontSize: 20,
-    duration: 2
+    duration: 2,
+    fontFamily: 'Bungee'
 }
 
 function TrackList() {

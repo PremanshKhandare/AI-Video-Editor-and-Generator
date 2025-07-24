@@ -1,9 +1,18 @@
+import * as Anton from '@remotion/google-fonts/AntonSC';
+import * as Bungee from '@remotion/google-fonts/Bungee';
+import * as Pacifico from '@remotion/google-fonts/Pacifico';
+import * as Parkinsans from '@remotion/google-fonts/Parkinsans';
 import { AbsoluteFill, Sequence, useVideoConfig } from "remotion";
 
 function RemotionComposition({ frameList }) {
 
   let trackFrame = 0;
   const { width, height } = useVideoConfig();
+
+  Bungee.loadFont();
+  Anton.loadFont();
+  Parkinsans.loadFont();
+  Pacifico.loadFont();
 
   return (
     <div>
@@ -21,7 +30,11 @@ function RemotionComposition({ frameList }) {
           return (
             <Sequence key={index} from={fromFrame} durationInFrames={duration}>
               <AbsoluteFill style={{
-                transform: `translateX(${width / 2 - 50}px) translateY(${height / 2 - 20}px)`
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                fontFamily: frame?.fontFamily
+                //transform: `translateX(${width / 2 - 50}px) translateY(${height / 2 - 20}px)`
               }}>
                 <h2 style={{ 
                   color: 'white',

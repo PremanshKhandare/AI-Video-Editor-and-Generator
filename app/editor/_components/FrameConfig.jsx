@@ -1,5 +1,6 @@
 "use client"
 import { VideoFrameContext } from "@/app/_context/VideoFramesContext";
+import { FontList } from "@/app/_data/List";
 import {
     Accordion,
     AccordionContent,
@@ -66,6 +67,12 @@ function FrameConfig() {
                         <SliderField label={'Font size'}
                             defaultValue={frame?.fontSize}
                             handleInputChange={(value) => handleInputChange('fontSize', value)} />
+
+                        {/* Font Family */}
+                        <DropDown defaultValue={frame?.fontFamily} label={'Font Family'}
+                            options={FontList}
+                            handleInputChange={(value) => handleInputChange('fontFamily', value)} />
+
                     </AccordionContent>
                 </AccordionItem>
             </Accordion>
