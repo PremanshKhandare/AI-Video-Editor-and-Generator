@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/accordion";
 import { LetterText } from "lucide-react";
 import { useContext, useEffect, useState } from "react";
+import ColorPickerField from "./ColorPickerField";
 import DropDown from "./DropDown";
 import SliderField from "./SliderField";
 import TextAreaBox from "./TextAreaBox";
@@ -72,6 +73,9 @@ function FrameConfig() {
                         <DropDown defaultValue={frame?.fontFamily} label={'Font Family'}
                             options={FontList}
                             handleInputChange={(value) => handleInputChange('fontFamily', value)} />
+
+                        <ColorPickerField defaultColor={frame.textColor}
+                            handleInputChange={(value) => handleInputChange('textColor', value)} />
 
                     </AccordionContent>
                 </AccordionItem>
