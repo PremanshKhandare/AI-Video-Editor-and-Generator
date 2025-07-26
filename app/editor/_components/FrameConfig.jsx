@@ -7,8 +7,9 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from "@/components/ui/accordion";
-import { LetterText } from "lucide-react";
+import { LetterText, SwatchBook } from "lucide-react";
 import { useContext, useEffect, useState } from "react";
+import BackgroundField from "./BackgroundField";
 import ColorPickerField from "./ColorPickerField";
 import DropDown from "./DropDown";
 import SliderField from "./SliderField";
@@ -79,6 +80,18 @@ function FrameConfig() {
 
                     </AccordionContent>
                 </AccordionItem>
+                <Accordion type="single" collapsible>
+                    <AccordionItem value="background">
+                        <AccordionTrigger>
+                            <span className='flex gap-2 text-lg items-center'>
+                                <SwatchBook />Background</span>
+                        </AccordionTrigger>
+                        <AccordionContent>
+                            <BackgroundField defaultValue={frame.bgColor}
+                            handleInputChange={(value) => handleInputChange('bgColor', value)} />
+                        </AccordionContent>
+                    </AccordionItem>
+                </Accordion>
             </Accordion>
         </div>
     )
