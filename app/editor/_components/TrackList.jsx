@@ -12,7 +12,8 @@ const defaultFrame = {
     fontSize: 20,
     duration: 2,
     fontFamily: 'Bungee',
-    bgColor: '#ffffff'
+    bgColor: '#ffffff',
+    animation: 'zoomIn'
 }
 
 function TrackList() {

@@ -1,13 +1,15 @@
+import { TextAnimation } from '@/app/_data/Animations';
 import * as Anton from '@remotion/google-fonts/AntonSC';
 import * as Bungee from '@remotion/google-fonts/Bungee';
 import * as Pacifico from '@remotion/google-fonts/Pacifico';
 import * as Parkinsans from '@remotion/google-fonts/Parkinsans';
-import { AbsoluteFill, Sequence, useVideoConfig } from "remotion";
+import { AbsoluteFill, Sequence, useCurrentFrame, useVideoConfig } from "remotion";
 
 function RemotionComposition({ frameList }) {
 
   let trackFrame = 0;
-  const { width, height } = useVideoConfig();
+  const { width, height, fps } = useVideoConfig();
+  const currentFrame=useCurrentFrame();
 
   Bungee.loadFont();
   Anton.loadFont();
@@ -39,7 +41,8 @@ function RemotionComposition({ frameList }) {
               }}>
                 <h2 style={{ 
                   color: frame?.textColor,
-                  fontSize: frame?.fontSize 
+                  fontSize: frame?.fontSize,
+                  transform: `${TextAnimation(frame.animation,currentFrame,fps,fromFrame,width,height)}` 
                   }}>
                   {frame.text}
                 </h2>

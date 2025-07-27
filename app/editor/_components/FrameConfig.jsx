@@ -1,13 +1,13 @@
 "use client"
 import { VideoFrameContext } from "@/app/_context/VideoFramesContext";
-import { FontList } from "@/app/_data/List";
+import { AnimationList, FontList } from "@/app/_data/List";
 import {
     Accordion,
     AccordionContent,
     AccordionItem,
     AccordionTrigger,
 } from "@/components/ui/accordion";
-import { LetterText, SwatchBook } from "lucide-react";
+import { Layers, LetterText, SwatchBook } from "lucide-react";
 import { useContext, useEffect, useState } from "react";
 import BackgroundField from "./BackgroundField";
 import ColorPickerField from "./ColorPickerField";
@@ -88,10 +88,27 @@ function FrameConfig() {
                         </AccordionTrigger>
                         <AccordionContent>
                             <BackgroundField defaultValue={frame.bgColor}
-                            handleInputChange={(value) => handleInputChange('bgColor', value)} />
+                                handleInputChange={(value) => handleInputChange('bgColor', value)} />
                         </AccordionContent>
                     </AccordionItem>
                 </Accordion>
+
+                <Accordion type="animation" collapsible>
+                    <AccordionItem value="background">
+                        <AccordionTrigger>
+                            <span className='flex gap-2 text-lg items-center'>
+                                <Layers />Animation</span>
+                        </AccordionTrigger>
+                        <AccordionContent>
+                            <DropDown
+                                defaultValue={frame?.animation}
+                                labei={'Text Animation'}
+                                options={AnimationList}
+                                handleInputChange={(value) => handleInputChange('animation', value)} />
+                        </AccordionContent>
+                    </AccordionItem>
+                </Accordion>
+
             </Accordion>
         </div>
     )
