@@ -1,11 +1,15 @@
+import { VideoFrameContext } from '@/app/_context/VideoFramesContext';
 import { TextAnimation } from '@/app/_data/Animations';
 import * as Anton from '@remotion/google-fonts/AntonSC';
 import * as Bungee from '@remotion/google-fonts/Bungee';
 import * as Pacifico from '@remotion/google-fonts/Pacifico';
 import * as Parkinsans from '@remotion/google-fonts/Parkinsans';
-import { AbsoluteFill, Sequence, useCurrentFrame, useVideoConfig } from "remotion";
+import { useContext } from 'react';
+import { AbsoluteFill, Audio, Sequence, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
 
 function RemotionComposition({ frameList }) {
+  const { videoFrames, setVideoFrames } = useContext(VideoFrameContext);
+  
 
   let trackFrame = 0;
   const { width, height, fps } = useVideoConfig();
@@ -50,6 +54,10 @@ function RemotionComposition({ frameList }) {
             </Sequence>
           );
         })}
+
+        {videoFrames?.music && typeof videoFrames.music === 'string' && (
+  <Audio volume={0.5} src={staticFile(videoFrames.music)} />
+)}
       </AbsoluteFill>
     </div>
   );

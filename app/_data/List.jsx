@@ -62,15 +62,12 @@ export const AnimationList = [
 
 export const MusicList = [
     {
-        // name:'Funky Drum',
-        name: 'audio1.mp3'
+        name:'audio1.mp3',
     },
     {
-        // name:'Exicited Clap',
-        name: 'audio2.mp3'
+        name:'audio2.mp3',
     },
     {
-        // name:'Intro Music',
-        name: 'audio3.mp3'
+        name:'audio3.mp3',
     }
 ]
