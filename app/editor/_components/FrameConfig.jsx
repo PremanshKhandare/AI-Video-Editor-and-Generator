@@ -7,11 +7,12 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Layers, LetterText, SwatchBook } from "lucide-react";
+import { Layers, LetterText, Smile, SwatchBook } from "lucide-react";
 import { useContext, useEffect, useState } from "react";
 import BackgroundField from "./BackgroundField";
 import ColorPickerField from "./ColorPickerField";
 import DropDown from "./DropDown";
+import EmojiField from "./EmojiField";
 import SliderField from "./SliderField";
 import TextAreaBox from "./TextAreaBox";
 
@@ -105,6 +106,16 @@ function FrameConfig() {
                                 labei={'Text Animation'}
                                 options={AnimationList}
                                 handleInputChange={(value) => handleInputChange('animation', value)} />
+                        </AccordionContent>
+                    </AccordionItem>
+
+                    <AccordionItem value="sticker">
+                        <AccordionTrigger>
+                            <span className='flex gap-2 text-lg items-center'>
+                                <Smile />Sticker</span>
+                        </AccordionTrigger>
+                        <AccordionContent>
+                            <EmojiField handleInputChange={(value) => handleInputChange('sticker', value)}/>
                         </AccordionContent>
                     </AccordionItem>
                 </Accordion>

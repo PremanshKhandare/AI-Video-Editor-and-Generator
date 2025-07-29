@@ -38,11 +38,12 @@ function TrackList() {
                 totalDuration = totalDuration + frame.duration;
             })
 
-            frameList && setVideoFrames({
+            frameList && setVideoFrames(prev=>({
+                ...prev,
                 totalDuration: totalDuration,
                 frameList: frameList,
                 selectedFrame: selectedFrame
-            })
+            }))
         }
 
     }, [frameList, selectedFrame])
