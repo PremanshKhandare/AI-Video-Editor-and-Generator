@@ -23,6 +23,8 @@ function EmojiField({handleInputChange}) {
                     ))}
                 </div>
             </ScrollArea>
+
+            
         </div>
     )
 }

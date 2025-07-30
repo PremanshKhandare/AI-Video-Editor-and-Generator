@@ -42,7 +42,11 @@ function RemotionComposition({ frameList }) {
 
               <AbsoluteFill>
                 {frame?.sticker && <img src={frame?.sticker} alt={'emoji'}
-                  width={50} height={50} />}
+                  width={50} height={50}
+                  style={{
+                    transform: `scale(${frame?.stickerSize}) translateX(${frame?.stickerPositionX}px) translateY(${frame?.stickerPositionY}px)`,
+                  }} 
+                  />}
               </AbsoluteFill>
 
               <AbsoluteFill style={{

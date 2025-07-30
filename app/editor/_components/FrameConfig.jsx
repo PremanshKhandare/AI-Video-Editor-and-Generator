@@ -115,7 +115,27 @@ function FrameConfig() {
                                 <Smile />Sticker</span>
                         </AccordionTrigger>
                         <AccordionContent>
-                            <EmojiField handleInputChange={(value) => handleInputChange('sticker', value)}/>
+                            <EmojiField handleInputChange={(value) => handleInputChange('sticker', value)} />
+                            <SliderField defaultValue={frame?.stickerSize ?? '0.5'}
+                                label={'Size'}
+                                max={4}
+                                step={0.5}
+                                handleInputChange={(value) => handleInputChange('stickerSize', value)}
+                            />
+                            <div className='flex gap-5 w-full'>
+                                <SliderField
+                                    label={'PositionX'}
+                                    defaultValue={frame?.stickerPositionX ?? '100'}
+                                    max={450}
+                                    handleInputChange={(value) => handleInputChange('stickerPositionX', value)}
+                                />
+                                <SliderField
+                                    label={'PositionY'}
+                                    defaultValue={frame?.stickerPositionY ?? '100'}
+                                    max={200}
+                                    handleInputChange={(value) => handleInputChange('stickerPositionY', value)}
+                                />
+                            </div>
                         </AccordionContent>
                     </AccordionItem>
                 </Accordion>
