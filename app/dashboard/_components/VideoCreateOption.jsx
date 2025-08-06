@@ -6,41 +6,40 @@ import { useRouter } from 'next/navigation';
 import uuid4 from 'uuid4';
 
 function VideoCreateOption() {
+    const { user } = useUser();
+    const router = useRouter();
 
-    const {user}=useUser();
-    const router=useRouter();
+    const CreateNewScratchVideo = async () => {
+        const videoId = uuid4();
 
-    const CreateNewScratchVideo=async()=>{
-        const videoId=uuid4();
-
-        const result=await axios.post('/api/video',{
-            videoId:videoId,
-            userEmail:user?.primaryEmailAddress?.emailAddress
+        const result = await axios.post('/api/video', {
+            videoId: videoId,
+            userEmail: user?.primaryEmailAddress?.emailAddress
         });
 
         console.log(result);
-        router.push('/editor/'+videoId)
+        router.push('/editor/' + videoId);
     }
 
     return (
         <div className='p-5 rounded-lg border mt-10'>
             <h2 className='font-bold text-2xl text-center'>Let's create your first video!</h2>
             <div className='flex gap-5 items-center justify-center mt-5'>
-                <Link href={'/create-ai-video'}>
-                    <div className='border rounded-lg p-4 w-full hover:bg-gray-100 cursor-pointer'>
+                <Link href={'/create-ai-video'} className='w-full'>
+                    <div className='border rounded-lg p-4 w-full hover:bg-gray-100 cursor-pointer text-center'>
                         <Image src={'/magic-wand.png'} alt='magic-wand' width={40} height={40} />
-                        <h2 className='text-lg'>Generate with AI</h2>
+                        <span className='text-lg mt-2 font-medium block'>Generate with AI</span>
                     </div>
                 </Link>
-                <div onClick={CreateNewScratchVideo}>
-                    <div className='border rounded-lg p-4 w-full hover:bg-gray-100 cursor-pointer'>
-                        <Image src={'/video-editing.png'} alt='magic-wand' width={40} height={40} />
-                        <h2 className='text-lg'>Create from scratch</h2>
+                <div onClick={CreateNewScratchVideo} className='w-full'>
+                    <div className='border rounded-lg p-4 w-full hover:bg-gray-100 cursor-pointer text-center'>
+                        <Image src={'/video-editing.png'} alt='video-editing' width={40} height={40} />
+                        <span className='text-lg mt-2 font-medium block'>Create from scratch</span>
                     </div>
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
-export default VideoCreateOption
+export default VideoCreateOption;
