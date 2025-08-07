@@ -1,11 +1,12 @@
-// generatePromo.js
-import { GoogleGenerativeAI } from "@google/generative-ai";
-import dotenv from "dotenv";
-import fs from "fs";
+import { GoogleGenAI } from '@google/genai';
+import dotenv from 'dotenv';
+import fs from 'fs';
 
 dotenv.config();
 
-const genAI = new GoogleGenerativeAI(process.env.NEXT_PUBLIC_GEMINI_API_KEY);
+const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
+
+const ai = new GoogleGenAI({ apiKey });
 
 export async function generatePromo(userTopic, userDuration) {
   const prompt = `
@@ -30,7 +31,7 @@ Based on the following JSON template:
   "music": "audio1.mp3"
 }
 
-Now, generate a video promo in the same JSON format using:
+Now generate a video promo in the same JSON format using:
 - Topic: ${userTopic}
 - Total duration: ${userDuration} seconds
 - Keep 1 to 2 words per frame
@@ -43,34 +44,45 @@ Now, generate a video promo in the same JSON format using:
 - Respond in valid JSON only
 `;
 
-  try {
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+  const contents = [
+    {
+      role: 'user',
+      parts: [{ text: prompt }],
+    },
+  ];
 
-    const result = await model.generateContent({
-      contents: [{ role: "user", parts: [{ text: prompt }] }],
-      generationConfig: {
-        maxOutputTokens: 1024,
-        temperature: 0.7,
-        topP: 1,
-        topK: 40,
-        responseMimeType: "application/json",
-      },
+  try {
+    const response = await ai.models.generateContentStream({
+      model: 'gemini-2.0-flash',
+      contents,
     });
 
-    const response = await result.response;
-    const text = await response.text();  // ✅ Await here
+    let fullText = '';
+    for await (const chunk of response) {
+      if (chunk.text) {
+        fullText += chunk.text;
+      }
+    }
+
+    // Extract only JSON (if Gemini wraps it in ```json or anything else)
+    const match = fullText.match(/```json([\s\S]*?)```/);
+    const rawJson = match ? match[1].trim() : fullText.trim();
 
     let parsed;
     try {
-      parsed = JSON.parse(text);
-    } catch (e) {
+      parsed = JSON.parse(rawJson);
+    } catch (err) {
       console.error("❌ Invalid JSON received from Gemini.");
+      console.error(rawJson);
       return;
     }
 
     const exportCode = `export const Prompt = ${JSON.stringify(parsed, null, 2)};\n`;
     fs.writeFileSync("promoData.js", exportCode);
     console.log("✅ Promo data saved to promoData.js");
+
+     return parsed;
+
   } catch (err) {
     console.error("❌ Error generating promo:", err.message);
   }
