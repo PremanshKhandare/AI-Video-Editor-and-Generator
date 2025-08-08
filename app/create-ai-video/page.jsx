@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { useUser } from "@clerk/nextjs";
 import axios from "axios";
+import { Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import uuid4 from "uuid4";
 import { Prompt } from "../_data/Prompt";
@@ -17,9 +19,12 @@ function CreateAiVideo() {
 
     const [topic,setTopic]=useState('');
     const [duration,setDuration]=useState(5);
+    const router=useRouter();
+    const [loading,setLoading]=useState(false);
 
     const OnGenerateClick=async()=>{
         const videoId=uuid4();
+        setLoading(true);
         // Create new record to DB
         const result = await axios.post('/api/video',{
             videoId:videoId,
@@ -35,7 +40,8 @@ function CreateAiVideo() {
             prompt:PROMPT
         })
 
-        console.log(aiResult.data)
+        setLoading(false);
+        router.replace('/dashboard');
     }
 
     return (
@@ -61,8 +67,8 @@ function CreateAiVideo() {
 
                 <Button className='w-full mt-5 max-w-xl'
                 onClick={OnGenerateClick}
-                disabled={topic?.length<=0 || duration==0}
-                >Generate</Button>
+                disabled={loading || topic?.length<=0 || duration==0}
+                > {loading? <Loader2 className='animate-spin'/> : 'Generate'}</Button>
             </div>
         </div>
     )
